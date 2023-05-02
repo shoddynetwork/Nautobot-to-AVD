@@ -1,0 +1,75 @@
+---
+### Generated via Automation.  Do not manually modify this file! ###
+nautobot_servers:
+  Switch:
+    ### https://nautobot.yourdomain.com/dcim/devices/162faa96-b374-470e-9377-b2e5182ed5e6/ ###
+    adapters:
+      - endpoint_ports: [GigabitEthernet0/8]
+        switch_ports: [Ethernet3]
+        switches: [DC1-LEAF-CPU-03]
+        enabled: True
+        profile: MGMT_Interfaces
+        
+      - endpoint_ports: [GigabitEthernet0/9]
+        switch_ports: [Ethernet3]
+        switches: [DC1-LEAF-CPU-04]
+        enabled: True
+        profile: MGMT_Interfaces
+        
+  HomeFirewall:
+    ### https://nautobot.yourdomain.com/dcim/devices/6b1fc043-9c52-4e95-8961-c7f09ea2137d/ ###
+    rack: R01
+    adapters:
+      - endpoint_ports: [Port1]
+        switch_ports: [Ethernet4]
+        switches: [DC1-LEAF-CPU-02]
+        enabled: True
+        profile: MGMT_Interfaces
+        
+  Server-12345678:
+    ### https://nautobot.yourdomain.com/dcim/devices/54173c2d-11a8-4396-9cd1-58a50eb2f348/ ###
+    rack: P24
+    adapters:
+      - endpoint_ports: [iDRAC]
+        switch_ports: [Ethernet4]
+        switches: [DC1-LEAF-CPU-04]
+        enabled: True
+        profile: MGMT_Interfaces
+        
+      - endpoint_ports: [NIC1, NIC2]
+        switch_ports: [Ethernet2, Ethernet2]
+        switches: [DC1-LEAF-CPU-01, DC1-LEAF-CPU-02]
+        enabled: True
+        profile: VM_Servers
+        port_channel:
+          mode: active
+        
+  Server-EC5678:
+    ### https://nautobot.yourdomain.com/dcim/devices/9c9d6468-eca8-4ac3-840a-185443cfe712/ ###
+    rack: AQ14
+    adapters:
+      - endpoint_ports: [iDRAC]
+        switch_ports: [Ethernet7]
+        switches: [DC1-LEAF-CPU-04]
+        enabled: True
+        profile: MGMT_Interfaces
+        
+      - endpoint_ports: [NIC 1, NIC 3, NIC 2, NIC 4]
+        switch_ports: [Ethernet1, Ethernet3, Ethernet1, Ethernet3]
+        switches: [DC1-LEAF-CPU-01, DC1-LEAF-CPU-01, DC1-LEAF-CPU-02, DC1-LEAF-CPU-02]
+        enabled: True
+        profile: MGMT_Interfaces
+        port_channel:
+          mode: active
+        
+  TestRtr-IOSXE:
+    ### https://nautobot.yourdomain.com/dcim/devices/ca1259eb-4192-4153-bfdb-6bcc64bdeb69/ ###
+    adapters:
+      - endpoint_ports: [GigabitEthernet1]
+        switch_ports: [Ethernet4]
+        switches: [DC1-LEAF-CPU-01]
+        enabled: True
+        mode: access
+        vlans: 2
+        
+  

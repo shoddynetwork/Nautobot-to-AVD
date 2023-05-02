@@ -1,0 +1,31 @@
+---
+### Generated via Automation.  Do not manually modify this file! ###
+nautobot_servers:
+  {% for device in connected_device -%}
+  {{ device.connected_device }}:
+    {% if device.device_url -%}
+    ### {{device.device_url}} ###
+    {% endif -%}
+    {% if device.rack -%}
+    rack: {{device.rack}}
+    {% endif -%}
+    adapters:{% for adapter in device.adapters %}
+      - endpoint_ports: {{adapter.endpoint_ports|replace("'","")}}
+        switch_ports: {{adapter.switch_ports|replace("'","")}}
+        switches: {{adapter.switches|replace("'","")}}
+        enabled: {{adapter.enabled}}
+        {% if adapter.profile -%}
+        profile: {{adapter.profile}}
+        {% else -%}
+        {% if adapter.mode == 'access' -%}
+        mode: access
+        vlans: {{adapter.vlans}}
+        {% elif adapter.mode == 'trunk' -%}
+        mode: trunk
+        {% endif -%}
+        {% endif -%}
+        {% if adapter.lag == True -%}
+        port_channel:
+          mode: active
+        {% endif -%}{%- endfor %}
+  {% endfor %}

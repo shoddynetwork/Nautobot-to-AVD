@@ -1,0 +1,30 @@
+- name: Update Connected Devices YML
+  hosts: localhost
+  vars:
+    ansible_connection: local
+  collections:
+    - lvrfrc87.git_acp
+  tasks:
+  - name: GIT check-out to temp folder
+    ansible.builtin.git:
+      repo: # "<ssh repo url>""
+      dest: /tmp/awx-repo/
+      accept_hostkey: yes
+      key_file: "{{ secret_key }}"
+  - name: Run a script to update nautobot_connected_devices.yml
+    ansible.builtin.script: "/runner/project/playbooks/files/nautobot_connected_devices.py {{ NAUTOBOT_URL }} {{ NAUTOBOT_TOKEN }}"
+    args:
+      executable: python3
+  - name: Update GIT with auto-generated connected devices file
+    git_acp:
+      path: /tmp/awx-repo/
+      branch: main
+      comment: Nautobot SOT Automation
+      remote: origin
+      mode: ssh
+      url: # "<<ssh repo url>>"
+      ssh_params:
+        accept_hostkey: true
+        key_file: "{{ secret_key }}"
+      user_name: "Nautobot AWX"
+      user_email: "email@domain.com"
